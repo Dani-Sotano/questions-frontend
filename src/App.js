@@ -1,30 +1,8 @@
-import { useState, useReducer } from "react";
-import Categories from "./components/overview/categories/Categories";
-import Goal from "./components/overview/goals/Goal";
-import Background from "./components/background/Background";
-import Questions from "./components/overview/questions/Questions";
-import data from "../src/resources/questions.json";
-
-
-export const SELECTIONS = {
-  CATEGORIES: "categories",
-  GOALS: "goals"
-}
-
-export const ELEMENTS = {
-  CATEGORIES: [
-    { title: 'Family', id: 0 },
-    { title: 'Relationship', id: 1 },
-    { title: 'Friends', id: 2 },
-    { title: 'Myself', id: 3 }
-  ],
-  GOALS: [
-    { title: 'Deep Connection', id: 0 },
-    { title: 'Smalltalk', id: 1 },
-    { title: 'Motivation', id: 2 },
-    { title: 'Feelings', id: 3 }
-  ]
-}
+import React, { useReducer } from "react";
+import Categories from "./components/Categories";
+import Goal from "./components/Goal";
+import Background from "./components/Background";
+import Questions from "./components/Questions";
 
 export const VIEW = {
   CATEGORY: 'category',
@@ -38,16 +16,13 @@ export const ACTIONS = {
 
 const reducer = function (state, action) {
   if (action.type === ACTIONS.CHANGE_VIEW) {
-    let nextView;
-    if(action.payload.category  === SELECTIONS.CATEGORIES){
-      nextView = VIEW.GOAL;
-    } else if(action.payload.category  === SELECTIONS.GOALS){
-      nextView = VIEW.QUESTION;
+    if (action.payload.view === VIEW.CATEGORY) {
+      return { ...state, category: action.payload.selection, view: VIEW.GOAL }
+    } else if (action.payload.view === VIEW.GOAL) {
+      return { ...state, goal: action.payload.selection, view: VIEW.QUESTION }
     }
-    return { category: action.payload.selection.title, view: nextView };
+    return { ...state, category: action.payload.selection, view: VIEW.QUESTION };
   }
-
-
 }
 
 
@@ -56,27 +31,28 @@ function App() {
   const [state, dispatch] = useReducer(reducer, {
     category: null,
     goal: null,
-    view: VIEW.QUESTION
+    view: VIEW.CATEGORY
   })
-
 
   return (
     <Background>
       {state.view === VIEW.GOAL &&
         <Goal
           dispatch={dispatch}
-          categories={ELEMENTS.GOALS}></Goal>}
+          category={state.category}
+          view={VIEW.GOAL}></Goal>}
       {state.view === VIEW.CATEGORY &&
         <Categories
           dispatch={dispatch}
-          categories={ELEMENTS.CATEGORIES}></Categories>
-      }{state.view === VIEW.QUESTION &&
+          view={VIEW.CATEGORY}></Categories>
+      }
+      {state.view === VIEW.QUESTION &&
         <Questions
-          data={data}></Questions>
+          category={state.category}
+          goal={state.goal}
+        ></Questions>
       }
     </Background>
-
-
   );
 }
 
