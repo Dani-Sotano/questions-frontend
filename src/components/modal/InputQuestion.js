@@ -1,36 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Input.module.css';
-import GoalSelector from './GoalSelector'
-
-const categories = [
-  {
-    name: "Family",
-    goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-  },
-  {
-    name: "Friends",
-    goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-  },
-  {
-    name: "Partner",
-    goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-  },
-  {
-    name: "Myself",
-    goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-  }
-
-]
+import GoalSelector from './GoalSelector';
+import { getCategoriesAsync, getGoalsAsync }  from '../../data/DataService';
 
 
+// const categories = [
+//   {
+//     name: "Family",
+//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
+//   },
+//   {
+//     name: "Friends",
+//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
+//   },
+//   {
+//     name: "Partner",
+//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
+//   },
+//   {
+//     name: "Myself",
+//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
+//   }
 
+// ]
 
 
 const InputQuestion = () => {
 
+
   const [enteredQuestion, setEnteredQuestion] = useState("")
   const [selectedCategories, setSelectedCategories] = useState("");
   const [selectedGoals, setSelectedGoals] = useState(new Map());
+  const [categories, setCategories] = useState([]);
+
+
+  useEffect(() => {
+    
+    async function go() {
+      
+      let catNames = await getCategoriesAsync();
+      let _categories = await Promise.all(catNames.map(async category => {
+        let goals = await getGoalsAsync(category)
+          return {
+            name: category,
+            goals: goals
+          }
+
+      }))
+
+      setCategories(_categories)
+
+    }
+
+    go();
+    
+  }, []);
+
 
     // question
   const questionChangeHandler = event => {
