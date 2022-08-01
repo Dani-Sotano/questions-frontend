@@ -1,8 +1,10 @@
-import React, { useReducer } from "react";
+import React, { useState, useReducer } from "react";
 import Categories from "./components/Categories";
 import Goal from "./components/Goal";
 import Background from "./components/Background";
+import InputQuestions from "./components/modal/InputQuestion";
 import Questions from "./components/Questions";
+import ReactModal from 'react-modal';
 
 export const VIEW = {
   CATEGORY: 'category',
@@ -34,8 +36,35 @@ function App() {
     view: VIEW.CATEGORY
   })
 
+  const [isOpen, setIsOpen] = useState(false)
+
+
+  const handleOpenModal = () => {
+    setIsOpen(true)
+  }
+  
+  // const handleCloseModal = () => {
+  //   setIsOpen(false);
+  // }
+
   return (
     <Background>
+
+      <button onClick={handleOpenModal}>Trigger Modal</button>
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={isOpen}
+        contentLabel="Minimal Modal Example"
+      >
+        <div>
+          <InputQuestions></InputQuestions>
+        </div>
+
+        {/* <button onClick={handleCloseModal}>Close Modal</button> */}
+      </ReactModal>
+
+
+
       {state.view === VIEW.GOAL &&
         <Goal
           dispatch={dispatch}
