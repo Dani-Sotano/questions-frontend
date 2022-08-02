@@ -1,22 +1,50 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from '../../styles/Input.module.css'
 
 
-const GoalSelector = (props) => {
-  const handleOnClick = (event) => {
-    props.addGoal({
-      category: props.category.name,
-      goal: event.target.value
-    })
+const createButtonGoals = (goals) => {
+  let button = {};
+  for(let g of goals){
+    button[g.name] = false;
   }
+  return button;
+}
+
+const GoalSelector = (props) => {
+
+  const [goals, setGoals] = useState("");
+
+  useEffect(() => {
+    async function createButtons() {
+      let goalButton = await createButtonGoals(props.category.goals);
+      setGoals(goalButton)
+    }
+    createButtons();
+  }, []);
+
+  const handleOnClick = (event) => {
+    let goalName = event.target.value;
+    if (goals[goalName]){
+      setGoals({...goals, [goalName]: false})
+      props.removeGoal({category: props.category.name, goal: goalName})
+    } else {
+      setGoals({ ...goals, [goalName]: true})
+      props.addGoal({category: props.category.name, goal: goalName})
+    }
+  }
+
+
   return (
     <div className={styles.selection_goals}>
-    {props.category.goals.map((goal, index) =>
+    {Object.keys(goals).map((name, index) =>
       <div key={index} className={styles.selection_goal}>
         <button
-        className={styles.goal_button}
-          value={goal}
-          onClick={handleOnClick}>{goal}</button>
+        type="button"
+        className={!props.category.selected ? styles.goal_button_disabled :
+          goals[name] ? styles.goal_button_selected :  styles.goal_button_not_selected}
+          value={name}
+          disabled={!props.category.selected}
+          onClick={handleOnClick}>{name}</button>
       </div>)
     }
   </div>

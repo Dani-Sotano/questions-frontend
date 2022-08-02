@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Input.module.css';
 import GoalSelector from './GoalSelector';
-import { getCategories, getGoals } from '../../data/DataService';
+import { getCategories, getGoals, saveQuestionToDB } from '../../data/DataService'
 
 const InputQuestion = () => {
 
@@ -18,9 +18,16 @@ const InputQuestion = () => {
       let selectionOptions = await Promise.all(
         categoryNames.map(async category => {
           let goals = await getGoals(category)
+          let goalsWithOptions = goals.map(goal => {
+            return {
+              name: goal,
+              selected: false
+            }
+          })
           return {
             name: category,
-            goals: goals
+            goals: goalsWithOptions,
+            selected: false
           }
         }))
       setSelectionOptions(selectionOptions)
@@ -35,27 +42,54 @@ const InputQuestion = () => {
 
   const formSubmissionHandler = event => {
     event.preventDefault();
-    console.log(selectedCategories);
-    console.log(selectedGoals)
+    saveQuestionToDB(enteredQuestion, selectedGoals)
   }
 
-  const addCategory = (event) => {
-    setSelectedCategories(selectedCategories => [...selectedCategories, event.target.value]);
+  const updateCategory = (event) => {
+    
+    let category = event.target.value;
+    let index = selectedCategories.indexOf(category)
+    if(index === -1){
+      setSelectedCategories(selectedCategories => [...selectedCategories, category]);
+    }
+    else {
+      setSelectedCategories(selectedCategories.filter(el => el === !category))
+      selectedGoals.delete(category)
+      setSelectedGoals(selectedGoals)
+    }
+    let newOptions = options.map(option => {
+      if(option.name === category)
+      option.selected = !option.selected;
+      return option;
+    })
+    setSelectionOptions(newOptions)
+
   }
+
 
   const addGoal = (selection) => {
-    console.log(selection)
     if (selectedGoals.has(selection.category)) {
       let selectedGoalsByCategory = selectedGoals.get(selection.category);
       selectedGoalsByCategory.push(selection.goal)
-      setSelectedGoals(selectedGoals => selectedGoals.set(selection.category, selectedGoalsByCategory))
+      selectedGoals.set(selection.category, selectedGoalsByCategory)
+      setSelectedGoals(selectedGoals)
     } else {
-      setSelectedGoals(selectedGoals => selectedGoals.set(selection.category, [selection.goal]))
+      selectedGoals.set(selection.category, [selection.goal])
+      setSelectedGoals(selectedGoals)
     }
-    console.log(selectedGoals)
   }
 
-
+  const removeGoal = (selection) => {
+    let array = selectedGoals.get(selection.category);
+    if(array.length > 1){
+      let index = array.indexOf(selection.goal);
+      array.splice(index, 1)
+      setSelectedGoals(selectedGoals.set(selection.category, array))
+    } else {
+      selectedGoals.delete(selection.category)
+      setSelectedGoals(selectedGoals)
+    }
+  }
 
   return (
     <form onSubmit={formSubmissionHandler} className={styles.container}>
@@ -73,15 +107,17 @@ const InputQuestion = () => {
         {options.map((category, index) => (
           <div key={index} className={styles.selection_row}>
             <button
-              className={styles.selection_category}
-              onClick={addCategory}
+              className={category.selected ? styles.category_selected : styles.category_not_selected}
+              onClick={updateCategory}
               value={category.name}
+              type="button"
             >
               {category.name}
             </button>
             <GoalSelector
               category={category}
               addGoal={addGoal}
+              removeGoal={removeGoal}
             ></GoalSelector>
 
           </div>

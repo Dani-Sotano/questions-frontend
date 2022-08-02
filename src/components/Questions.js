@@ -53,7 +53,7 @@ function Questions({category, goal}) {
     useEffect(() => {
         async function fetchData(category, goal){
             let questions = await getQuestions(category, goal);
-            await dispatch({
+            dispatch({
                     type: ACTIONS.DATA_UPDATE,
                     data: questions
                 }

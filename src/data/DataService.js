@@ -1,4 +1,9 @@
 
+const REQUEST_OPTIONS = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+};
+
 async function getCategories() {
     try {
         let response = await fetch(`http://localhost:5001/questions/categories`)
@@ -44,5 +49,29 @@ async function getQuestions(category, goal) {
     }
 }
 
+async function saveQuestionToDB(question, classifications) {
+    try {
+        let options = REQUEST_OPTIONS;
+        options.body = JSON.stringify(
+            { 
+                question: question, 
+                classifications: Object.fromEntries(classifications)
+             }
+        )
 
-export { getQuestions, getCategories, getGoals }
+        let response = await fetch(`http://localhost:5001/questions/newquestion`, options)
+
+        if (response.ok) {
+            let data = await response.json();
+            return data.questions
+        } else {
+            console.log("questions could not have been fetched", response.status, response.statusText)
+        }
+    } catch (err) {
+        console.error(err);
+    }
+
+}
+
+
+export { getQuestions, getCategories, getGoals, saveQuestionToDB }
