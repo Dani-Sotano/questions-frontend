@@ -1,57 +1,48 @@
-import {ACTIONS} from '../components/Questions'
 
-function getCategories(setCategories) {
-    fetch(`http://localhost:5001/questions/categories`)
-        .then((response) => response.json())
-        .then((data) => {
-
-            if (!data || data.categories.length === 0) {
-                setCategories([]);
-            }
-            
-            setCategories(data.categories)
-                        
-        })
-
-}
-
-async function getCategoriesAsync(){
-
-    let response = await fetch(`http://localhost:5001/questions/categories`)
-    let data = await response.json();
-    return data.categories;
+async function getCategories() {
+    try {
+        let response = await fetch(`http://localhost:5001/questions/categories`)
+        if (response.ok) {
+            let data = await response.json();
+            return data.categories
+        } else {
+            console.log("questions could not have been fetched", response.status, response.statusText)
+        }
+    } catch (err) {
+        console.error(err);
+    }
+    return data.categories
 }
 
 
-async function getGoalsAsync(category){
-
-    let response = await fetch(`http://localhost:5001/questions/goals/${category}`)
-    let data = await response.json();
+async function getGoals(category) {
+    try {
+        let response = await fetch(`http://localhost:5001/questions/goals/${category}`)
+        if (response.ok) {
+            let data = await response.json();
+            return data.goals
+        } else {
+            console.log("questions could not have been fetched", response.status, response.statusText)
+        }
+    } catch (err) {
+        console.error(err);
+    }
     return data.goals
 }
 
-
-
-function getGoals(category, setGoals) {
-    fetch(`http://localhost:5001/questions/goals/${category}`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (!data || data.goals.length === 0) {
-                setGoals([]);
-            }
-            setGoals(data.goals)
-        })
-}
-
-function getQuestions(category, goal, dispatch) {
-    fetch(`http://localhost:5001/questions/list/${category}/${goal}`)
-        .then((response) => response.json())
-        .then((data) => dispatch({
-                type: ACTIONS.DATA_UPDATE,
-                data: data.questions
-            })
-        )
+async function getQuestions(category, goal) {
+    try {
+        let response = await fetch(`http://localhost:5001/questions/list/${category}/${goal}`)
+        if (response.ok) {
+            let data = await response.json();
+            return data.questions
+        } else {
+            console.log("questions could not have been fetched", response.status, response.statusText)
+        }
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 
-export { getQuestions, getCategories, getCategoriesAsync, getGoals, getGoalsAsync }
+export { getQuestions, getCategories, getGoals }

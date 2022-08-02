@@ -7,7 +7,15 @@ function Goal(props) {
 
     const [goals, setGoals] = useState([]);
 
-    useEffect(() => getGoals(props.category, setGoals), []);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let goalNames = await getGoals(props.category);
+            setGoals(goalNames);
+        }
+        fetchData();
+    }, []);
 
     return (
         <div className={styles.container}>

@@ -54,7 +54,7 @@ function App() {
       <ReactModal
         ariaHideApp={false}
         isOpen={isOpen}
-        contentLabel="Minimal Modal Example"
+        contentLabel="Input new question"
       >
         <div>
           <InputQuestions></InputQuestions>

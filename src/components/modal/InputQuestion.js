@@ -1,66 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/Input.module.css';
 import GoalSelector from './GoalSelector';
-import { getCategoriesAsync, getGoalsAsync }  from '../../data/DataService';
-
-
-// const categories = [
-//   {
-//     name: "Family",
-//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-//   },
-//   {
-//     name: "Friends",
-//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-//   },
-//   {
-//     name: "Partner",
-//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-//   },
-//   {
-//     name: "Myself",
-//     goals: ["Struggle", "Deep Conversations", "Love", "Experiences"]
-//   }
-
-// ]
-
+import { getCategories, getGoals } from '../../data/DataService';
 
 const InputQuestion = () => {
-
 
   const [enteredQuestion, setEnteredQuestion] = useState("")
   const [selectedCategories, setSelectedCategories] = useState("");
   const [selectedGoals, setSelectedGoals] = useState(new Map());
-  const [categories, setCategories] = useState([]);
+  const [options, setSelectionOptions] = useState([]);
 
 
   useEffect(() => {
-    
-    async function go() {
-      
-      let catNames = await getCategoriesAsync();
-      let _categories = await Promise.all(catNames.map(async category => {
-        let goals = await getGoalsAsync(category)
+
+    async function fetchData() {
+      let categoryNames = await getCategories();
+      let selectionOptions = await Promise.all(
+        categoryNames.map(async category => {
+          let goals = await getGoals(category)
           return {
             name: category,
             goals: goals
           }
-
-      }))
-
-      setCategories(_categories)
-
+        }))
+      setSelectionOptions(selectionOptions)
     }
-
-    go();
-    
+    fetchData();
   }, []);
 
-
-    // question
   const questionChangeHandler = event => {
-      setEnteredQuestion(event.target.value)
-  } 
+    setEnteredQuestion(event.target.value)
+  }
 
 
   const formSubmissionHandler = event => {
@@ -75,7 +45,7 @@ const InputQuestion = () => {
 
   const addGoal = (selection) => {
     console.log(selection)
-    if(selectedGoals.has(selection.category)){
+    if (selectedGoals.has(selection.category)) {
       let selectedGoalsByCategory = selectedGoals.get(selection.category);
       selectedGoalsByCategory.push(selection.goal)
       setSelectedGoals(selectedGoals => selectedGoals.set(selection.category, selectedGoalsByCategory))
@@ -99,10 +69,8 @@ const InputQuestion = () => {
           value={enteredQuestion}
         />
       </div>
-      
-      
-      <div className={styles.selection}> 
-      {categories.map((category, index) => (
+      <div className={styles.selection}>
+        {options.map((category, index) => (
           <div key={index} className={styles.selection_row}>
             <button
               className={styles.selection_category}
@@ -116,17 +84,12 @@ const InputQuestion = () => {
               addGoal={addGoal}
             ></GoalSelector>
 
-         </div> 
+          </div>
         ))}
       </div>
-
-      
-
-     
-
-        <div className="form-actions">
-          <button>Submit</button>
-        </div>
+      <div className="form-actions">
+        <button>Submit</button>
+      </div>
     </form>
   );
 };

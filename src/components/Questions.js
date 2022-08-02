@@ -50,7 +50,17 @@ function Questions({category, goal}) {
         isLoading: true
     })
 
-    useEffect(() => getQuestions(category, goal, dispatch), []);
+    useEffect(() => {
+        async function fetchData(category, goal){
+            let questions = await getQuestions(category, goal);
+            await dispatch({
+                    type: ACTIONS.DATA_UPDATE,
+                    data: questions
+                }
+            )
+        }
+        fetchData(category, goal);
+    }, []);
 
     function handleNextQuestion() {
         dispatch({
