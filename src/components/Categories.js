@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/Overview.module.css'
+import styles from '../styles/css/Overview.module.css'
 import Button from './Button.js'
 import { getCategories } from '../data/DataService'
 

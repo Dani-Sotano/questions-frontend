@@ -1,4 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@font-face {
+   font-family: "Raleway";
+   src: local("Raleway"),
+    url("./resources/fonts/Raleway/Raleway-VariableFont_wght.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "TroyeSansFree SANS";
+    src: local("TroyeSansFree"),
+     url("./resources/fonts/TroyeSansFree/Troye Sans Free.ttf") format("truetype");
+    }
+    
+    @font-face {
+      font-family: "TroyeSansFree SERIF";
+      src: local("TroyeSansFree"),
+       url("./resources/fonts/TroyeSansFree/Troye Serif Free.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "TroyeSansFree SCRIPT";
+        src: local("TroyeSansFree"),
+         url("./resources/fonts/TroyeSansFree/Troye Script Free.ttf") format("truetype");
+        }
+
+
+  @font-face {
+    font-family: "PlayfairDisplay";
+    src: local("PlayfairDisplay"),
+     url("./resources/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+    }
+    
 
 * {
   box-sizing: border-box;

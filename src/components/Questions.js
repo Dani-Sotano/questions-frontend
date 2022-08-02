@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import styles from '../styles/Overview.module.css'
+import styles from '../styles/css/Overview.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { getQuestions } from '../data/DataService'

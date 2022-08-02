@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../styles/Input.module.css';
+import styles from '../../styles/css/Input.module.css';
 import GoalSelector from './GoalSelector';
 import { getCategories, getGoals, saveQuestionToDB } from '../../data/DataService'
 
@@ -92,16 +92,17 @@ const InputQuestion = () => {
   }
 
   return (
-    <form onSubmit={formSubmissionHandler} className={styles.container}>
+    <div className={styles.container}>
+    <form onSubmit={formSubmissionHandler} className={styles.form}>
       <div className={styles.input}>
-        <label htmlFor='question'>Here you can share your question</label>
-        <input
-          type='text'
+        <label htmlFor='question' className={styles.inputLabel}>Thank you for sharing your Question</label>
+        <textarea
+          className={styles.inputField}
           id='name'
           maxLength={250}
           onChange={questionChangeHandler}
           value={enteredQuestion}
-        />
+          />
       </div>
       <div className={styles.selection}>
         {options.map((category, index) => (

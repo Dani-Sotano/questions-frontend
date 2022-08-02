@@ -1,9 +1,0 @@
-.image{
-    background-image: url("../resources/background.jpg");
-    text-align: center;
-    position: fixed;
-    min-width: 100%;
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-}

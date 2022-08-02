@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import styles from '../../styles/Input.module.css'
+import styles from '../../styles/css/Input.module.css'
 
 
 const createButtonGoals = (goals) => {

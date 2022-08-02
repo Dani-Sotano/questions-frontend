@@ -1,7 +1,7 @@
 import { ACTIONS } from '../App.js';
 import React from 'react';
 
-import styles from '../styles/Overview.module.css'
+import styles from '../styles/css/Overview.module.css'
 
 const Button = props => {
     const onClickHandler = (event) => {
