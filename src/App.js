@@ -36,16 +36,18 @@ function App() {
     view: VIEW.CATEGORY
   })
 
-  const [isOpen, setIsOpen] = useState(false)
+
+  //TODO change
+  const [isOpen, setIsOpen] = useState(true)
 
 
   const handleOpenModal = () => {
     setIsOpen(true)
   }
   
-  // const handleCloseModal = () => {
-  //   setIsOpen(false);
-  // }
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  }
 
   return (
     <Background>
@@ -57,10 +59,10 @@ function App() {
         contentLabel="Input new question"
       >
         <div>
-          <InputQuestions></InputQuestions>
+          <InputQuestions closeModal={handleCloseModal}></InputQuestions>
         </div>
 
-        {/* <button onClick={handleCloseModal}>Close Modal</button> */}
+
       </ReactModal>
 
 

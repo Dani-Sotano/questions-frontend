@@ -3,7 +3,7 @@ import styles from '../../styles/css/Input.module.css';
 import GoalSelector from './GoalSelector';
 import { getCategories, getGoals, saveQuestionToDB } from '../../data/DataService'
 
-const InputQuestion = () => {
+const InputQuestion = (props) => {
 
   const [enteredQuestion, setEnteredQuestion] = useState("")
   const [selectedCategories, setSelectedCategories] = useState("");
@@ -124,10 +124,15 @@ const InputQuestion = () => {
           </div>
         ))}
       </div>
-      <div className="form-actions">
-        <button>Submit</button>
+      <div >
+                {/* <button onClick={handleCloseModal}>Close Modal</button> */}
+      <button className={styles.submitButton}>Submit</button>
+        <button className={styles.closeButton} onClick={props.closeModal}>Close</button>
+
       </div>
     </form>
+    </div>
+
   );
 };
 
