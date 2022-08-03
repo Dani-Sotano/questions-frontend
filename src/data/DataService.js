@@ -1,4 +1,3 @@
-
 const REQUEST_OPTIONS = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -16,7 +15,7 @@ async function getCategories() {
     } catch (err) {
         console.error(err);
     }
-    return data.categories
+    return []
 }
 
 
@@ -32,7 +31,7 @@ async function getGoals(category) {
     } catch (err) {
         console.error(err);
     }
-    return data.goals
+    return []
 }
 
 async function getQuestions(category, goal) {

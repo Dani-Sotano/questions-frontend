@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/css/Overview.module.css'
-import Button from './Button.js'
+import styles from '../styles/css/Selection.module.css'
+import { ACTIONS } from '../App.js';
 import {getGoals} from '../data/DataService'
 
 function Goal(props) {
 
     const [goals, setGoals] = useState([]);
 
+    const onClickHandler = (event) => {
+        event.preventDefault();
+        props.dispatch({
+            type: ACTIONS.CHANGE_VIEW,
+            payload: {
+                view: props.view,
+                selection: event.target.value
+            }
+        })
+    }
 
 
     useEffect(() => {
@@ -18,19 +28,32 @@ function Goal(props) {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <div className={styles.content}>
-                {goals.map((goal, index) => (
-                    <Button 
-                    key={index} 
-                    selection={goal}
-                    view={props.view}
-                    dispatch={props.dispatch}>
-                        <h2 className={styles.buttonText}>{goal}</h2>
-                    </Button>
-                ))}
+        <div className={styles.overview}>
+        <div className={styles.background_goal}></div>
+        <div className={styles.goal_container}>
+            <div className={styles.selection}>
+                <div>
+                    <h1 className={styles.heading}>What direction shall your conversation go?</h1>
+                    <div className={styles.buttons}>
+                        {goals.map((goal, index) => (
+                            <button 
+                            type="text"
+                            className={styles.element} 
+                            key={index} 
+                            value={goal} 
+                            onClick={onClickHandler}>
+                                {goal}
+                            </button>
+
+                        ))}
+                    </div>
+                </div>
+
             </div>
-        </div>
+
+
+        </div >
+    </div>
     )
 }
 

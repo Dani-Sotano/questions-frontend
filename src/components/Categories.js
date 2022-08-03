@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/css/Overview.module.css'
-import Button from './Button.js'
+import { ACTIONS } from '../App.js';
+import styles from '../styles/css/Selection.module.css'
 import { getCategories } from '../data/DataService'
 
 function Categories(props) {
@@ -15,20 +15,45 @@ function Categories(props) {
         fetchData();
     }, []);
 
+    const onClickHandler = (event) => {
+        event.preventDefault();
+        props.dispatch({
+            type: ACTIONS.CHANGE_VIEW,
+            payload: {
+                view: props.view,
+                selection: event.target.value
+            }
+        })
+    }
+
     return (
-        <div className={styles.container}>
-            <div className={styles.content}>
-                {categories.map((category, index) => (
-                    <Button
-                        key={index}
-                        selection={category}
-                        view={props.view}
-                        dispatch={props.dispatch}>
-                        <h2 className={styles.buttonText}>{category}</h2>
-                    </Button>
-                ))}
-            </div>
+        <div className={styles.overview}>
+            <div className={styles.background}></div>
+            <div className={styles.category_container}>
+                <div className={styles.selection}>
+                    <div>
+                        <h1 className={styles.heading}>Who do you want to talk to?</h1>
+                        <div className={styles.buttons}>
+                            {categories.map((category, index) => (
+                                <button 
+                                type={props.type} 
+                                className={styles.element} 
+                                key={index} 
+                                value={category} 
+                                onClick={onClickHandler}>
+                                    {category}
+                                </button>
+
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div >
         </div>
+
     )
 }
 

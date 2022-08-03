@@ -10,6 +10,11 @@
     src: local("TroyeSansFree"),
      url("./resources/fonts/TroyeSansFree/Troye Sans Free.ttf") format("truetype");
     }
+    @font-face {
+    font-family: "Holdiger";
+    src: local("Holdiger"),
+     url("./resources/fonts/Holdinger/Holdiger400.otf") format("truetype");
+    }
     
     @font-face {
       font-family: "TroyeSansFree SERIF";

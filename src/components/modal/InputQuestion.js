@@ -102,9 +102,11 @@ const InputQuestion = (props) => {
           maxLength={250}
           onChange={questionChangeHandler}
           value={enteredQuestion}
+          placeholder="Enter your question here..."
           />
       </div>
       <div className={styles.selection}>
+        Select the scenarios in which  your question  will be shown.
         {options.map((category, index) => (
           <div key={index} className={styles.selection_row}>
             <button

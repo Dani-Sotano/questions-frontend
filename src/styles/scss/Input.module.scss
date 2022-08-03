@@ -1,0 +1,158 @@
+@import "../variables/Variables.scss";
+
+.container {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.form {
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    grid-template-rows: auto;
+    font-family: $basic_font;
+}
+
+.submitButton{
+    background-color: $base;
+    color: $contrast_dark;
+    float: right;
+    margin: 10px;
+}
+
+.closeButton{
+    color: $contrast_dark;
+    float: right;
+    margin: 10px;
+}
+
+.input {
+    grid-row: 1;
+    width: 100%;
+    justify-content: center;
+}
+
+.inputLabel{
+    font-family: $troye_script;
+    font-size: 40px;
+    color:$font;
+    align-self: center;
+    width: 100%;
+}
+
+.inputField {
+    border: 1px solid $disabled; 
+    outline:0;
+    padding: 1em;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    height: 100px;
+    // margin-right: 10px;
+    margin-top: 2em;
+    font-family: $basic_font;
+    letter-spacing: 0.7px;
+    color: $font;
+    font-size: 17px;
+    word-break: break-word;
+    box-sizing: border-box;
+}
+
+.selection {
+    grid-row: 2;
+    display: grid;
+    align-content: start;
+    margin-top: 2em;
+}
+
+.selection_row{
+    display: grid;
+    grid-template-columns: 1fr 4fr; 
+    height: 80px;
+    margin-top: 20px;
+} 
+
+
+.selection_goals {
+    grid-column: 2;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    margin-left: 20px;
+}
+
+.selection_goal {
+    grid-column: 4;
+    padding: 2px;
+}
+
+button{
+    width: 150px;
+    height: 50px;
+    border: solid 1px $disabled;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: $basic_font;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.goal_button{
+    margin: 5px;
+}
+
+.category_selected{
+    color: rgb(251, 251, 251);
+    background-color: $contrast_dark;
+    align-self: start;
+}
+.category_not_selected{
+    color: $contrast_dark;
+    align-self: start;
+}
+
+.goal_button_not_selected{
+    color: $contrast_medium;
+}
+
+.goal_button_disabled{
+    color: $disabled;
+    border-color: $disabled;
+    cursor: none;
+}
+
+.goal_button_selected{
+    color: $white;
+    background-color: $contrast_light;
+}
+
+@media all and (max-width: 960px) {
+    .selection_row{
+        height: 150px;
+        overflow-y: auto;
+    }
+}
+
+@media all and (max-width: 640px) {
+    .selection_row{
+        height: 300px;
+        overflow-y: auto;
+    }
+}
+
+
+@media all and (max-width: 490px) {
+    .selection_goals{
+        grid-column: 1;
+        padding: 2px;
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .selection_goal{
+        width: 100px;
+        position: relative;
+    }
+}

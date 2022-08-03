@@ -1,8 +1,10 @@
 import React, { useEffect, useReducer } from 'react'
-import styles from '../styles/css/Overview.module.css'
+import styles from '../styles/css/Selection.module.css'
+import { getQuestions } from '../data/DataService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { getQuestions } from '../data/DataService'
+
+
 import PropTypes from "prop-types";
 
 export const ACTIONS = {
@@ -37,11 +39,10 @@ const reduce = (state, action) => {
     }
 }
 
-function Questions({category, goal}) {
+function Questions({ category, goal }) {
 
     let data = [];
 
-    //TODO: test if no question exist
     let [state, dispatch] = useReducer(reduce, {
         questions: data,
         currentQuestionId: 0,
@@ -51,12 +52,12 @@ function Questions({category, goal}) {
     })
 
     useEffect(() => {
-        async function fetchData(category, goal){
+        async function fetchData(category, goal) {
             let questions = await getQuestions(category, goal);
             dispatch({
-                    type: ACTIONS.DATA_UPDATE,
-                    data: questions
-                }
+                type: ACTIONS.DATA_UPDATE,
+                data: questions
+            }
             )
         }
         fetchData(category, goal);
@@ -74,31 +75,32 @@ function Questions({category, goal}) {
         })
     }
 
-    if (state.isLoading) {
-        return <p>Loading...</p>
-    }
 
-    if (state.questions.length === 0) {
-        return <p>There is no data...</p>
-    }
+
 
 
     return (
-        <>
-            <div className={styles.outercontainer}>
-                <button className={styles.prev} onClick={handlePrevQuestion} disabled={state.prevDisabled}><FontAwesomeIcon icon={faChevronLeft} className={styles.icon} /></button>
-                <div className={styles.questioncontainer}>
-                    <div className={styles.questionbox}>
-                        <div className={styles.text}>
+        <div className={styles.overview}>
+            <div className={styles.background_question}></div>
+            <div className={styles.container_question}>
+                <div className={styles.question_box}>
+                    {!state.isLoading && state.questions.length &&
+                        <div className={styles.question}>
                             {state.questions[state.currentQuestionId]}
                         </div>
-                    </div>
+                    }
+                    {!state.isLoading && !state.questions.length &&
+                        <p className={styles.empty}>There is no data...</p>
+                    }
+                    <button className={styles.prev} onClick={handlePrevQuestion} disabled={state.prevDisabled}>
+                        <FontAwesomeIcon icon={faChevronLeft} className={styles.icon} />
+                    </button>
+                    <button className={styles.next} onClick={handleNextQuestion} disabled={state.nextDisabled}>
+                        <FontAwesomeIcon icon={faChevronRight} className={styles.icon} />
+                    </button>
                 </div>
-
-                <button className={styles.next} onClick={handleNextQuestion} disabled={state.nextDisabled}><FontAwesomeIcon icon={faChevronRight} className={styles.icon} /></button>
             </div>
-        </>
-
+        </div >
     )
 }
 

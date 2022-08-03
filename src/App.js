@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from "react";
 import Categories from "./components/Categories";
+import Header from "./components/Header";
 import Goal from "./components/Goal";
 import Background from "./components/Background";
 import InputQuestions from "./components/modal/InputQuestion";
@@ -36,23 +37,19 @@ function App() {
     view: VIEW.CATEGORY
   })
 
+  const [isOpen, setIsOpen] = useState(false)
 
-  //TODO change
-  const [isOpen, setIsOpen] = useState(true)
-
-
-  const handleOpenModal = () => {
-    setIsOpen(true)
-  }
-  
   const handleCloseModal = () => {
     setIsOpen(false);
   }
 
   return (
-    <Background>
+    <div>
+      {/* <Header 
+          openModal={setIsOpen}
+          isOpen={isOpen}>
+            </Header> */}
 
-      <button onClick={handleOpenModal}>Trigger Modal</button>
       <ReactModal
         ariaHideApp={false}
         isOpen={isOpen}
@@ -61,11 +58,7 @@ function App() {
         <div>
           <InputQuestions closeModal={handleCloseModal}></InputQuestions>
         </div>
-
-
       </ReactModal>
-
-
 
       {state.view === VIEW.GOAL &&
         <Goal
@@ -83,7 +76,8 @@ function App() {
           goal={state.goal}
         ></Questions>
       }
-    </Background>
+    </div>
+    
   );
 }
 
