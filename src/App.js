@@ -46,7 +46,7 @@ function App() {
     view: VIEW.CATEGORY
   })
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -89,7 +89,7 @@ function App() {
         contentLabel="Input new question"
         className={styles.modal}
       >
-        <div>
+        <div onClick={e => e.stopPropagation()} >
           <InputQuestions closeModal={handleCloseModal}></InputQuestions>
         </div>
       </ReactModal>
