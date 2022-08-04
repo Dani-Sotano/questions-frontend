@@ -17,7 +17,8 @@ export const VIEW = {
 export const ACTIONS = {
   CHANGE_VIEW: "change-view",
   REMOVE_CATEGORY: "remove_category",
-  REMOVE_GOALS: "remove_goals"
+  REMOVE_GOALS: "remove_goals",
+  CHANGE_MODAL: "change_modal"
 }
 
 const reducer = function (state, action) {
@@ -35,6 +36,9 @@ const reducer = function (state, action) {
   } else if (action.type === ACTIONS.REMOVE_GOALS) {
     return { ...state, goal: null, view: VIEW.GOAL }
   }
+  if (action.type === ACTIONS.CHANGE_MODAL) {
+    return { ...state, modalOpen: action.isOpen }
+  }
 }
 
 
@@ -43,21 +47,24 @@ function App() {
   const [state, dispatch] = useReducer(reducer, {
     category: null,
     goal: null,
-    view: VIEW.CATEGORY
+    view: VIEW.CATEGORY,
+    modalOpen: false
   })
 
-  const [isOpen, setIsOpen] = useState(false)
-
   const handleCloseModal = () => {
-    setIsOpen(false);
+    dispatch({type: ACTIONS.CHANGE_MODAL, isOpen: false})
+  }
+
+  const handleOpenModal = () => {
+    dispatch({type: ACTIONS.CHANGE_MODAL, isOpen: true})
   }
 
   return (
-    <div className={styles.wrapper} onClick={isOpen ? handleCloseModal : undefined}>
+    <div className={styles.wrapper} onClick={state.openModal ? handleCloseModal : undefined}>
       <Header
       className={styles.header}
-        openModal={setIsOpen}
-        isOpen={isOpen}
+        openModal={handleOpenModal}
+        isOpen={state.modalOpen}
         category={state.category}
         goal={state.goal}
         dispatch={dispatch}
@@ -85,11 +92,11 @@ function App() {
       </div>
       <ReactModal
         ariaHideApp={false}
-        isOpen={isOpen}
+        isOpen={state.modalOpen}
         contentLabel="Input new question"
         className={styles.modal}
       >
-        <div onClick={e => e.stopPropagation()} >
+        <div>
           <InputQuestions closeModal={handleCloseModal}></InputQuestions>
         </div>
       </ReactModal>

@@ -89,6 +89,11 @@ const InputQuestion = (props) => {
       setSelectedGoals(selectedGoals)
     }
   }
+  debugger;
+
+  const handleCloseModal = () => {
+    props.closeModal();
+  }
 
   return (
     <div className={styles.container}>
@@ -126,9 +131,8 @@ const InputQuestion = (props) => {
         ))}
       </div>
       <div >
-                {/* <button onClick={handleCloseModal}>Close Modal</button> */}
       <button className={styles.submitButton}>Submit</button>
-        <button className={styles.closeButton} onClick={props.closeModal}>Close</button>
+        <button className={styles.closeButton} onClick={handleCloseModal}>Close</button>
 
       </div>
     </form>
