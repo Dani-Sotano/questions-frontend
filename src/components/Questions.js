@@ -13,13 +13,14 @@ export const ACTIONS = {
     DATA_UPDATE: "data_update"
 }
 
-function setDisabledValues(state) {
+function setDisabledValues(questions, id) {
     let nextDisabled = false;
     let prevDisabled = false;
-    if (state.currentQuestionId + 1 === state.questions.length - 1) {
+    console.log(id)
+    if (id === questions.length) {
         nextDisabled = true;
     }
-    if (state.currentQuestionId - 1 == 0) {
+    if (id === 0) {
         prevDisabled = true;
     }
     return [prevDisabled, nextDisabled]
@@ -27,15 +28,22 @@ function setDisabledValues(state) {
 
 const reduce = (state, action) => {
     if (action.type === ACTIONS.NEXT_QUESTION) {
-        let [prevDisabled, nextDisabled] = setDisabledValues(state);
-        return { ...state, currentQuestionId: state.currentQuestionId + 1, nextDisabled: nextDisabled, prevDisabled: prevDisabled }
+        let nextQuestionId = state.currentQuestionId + 1
+        let [prevDisabled, nextDisabled] = setDisabledValues(state.questions, nextQuestionId);
+        return { ...state, 
+            currentQuestionId: state.currentQuestionId + 1, 
+            nextDisabled: nextDisabled, 
+            prevDisabled: prevDisabled 
+        }
     }
     if (action.type === ACTIONS.PREV_QUESTION) {
-        let [prevDisabled, nextDisabled] = setDisabledValues(state);
-        return { ...state, currentQuestionId: state.currentQuestionId - 1, nextDisabled: nextDisabled, prevDisabled: prevDisabled }
+        let prevQuestionId = state.currentQuestionId -1
+        let [prevDisabled, nextDisabled] = setDisabledValues(state.questions, prevQuestionId);
+        return { ...state, currentQuestionId: prevQuestionId, nextDisabled: nextDisabled, prevDisabled: prevDisabled }
     }
     if (action.type === ACTIONS.DATA_UPDATE) {
-        return { ...state, questions: action.data, isLoading: false }
+        let [prevDisabled, nextDisabled] = setDisabledValues(state);
+        return { ...state, questions: action.data, isLoading: false, nextDisabled: nextDisabled }
     }
 }
 
@@ -47,7 +55,7 @@ function Questions({ category, goal }) {
         questions: data,
         currentQuestionId: 0,
         prevDisabled: true,
-        nextDisabled: data.length === 1,
+        nextDisabled: true,
         isLoading: true
     })
 
@@ -74,7 +82,9 @@ function Questions({ category, goal }) {
             type: ACTIONS.PREV_QUESTION
         })
     }
-    
+
+console.log(data)
+
     return (
         <div className={styles.overview}>
             <div className={styles.background_question}></div>
