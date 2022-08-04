@@ -5,15 +5,15 @@ import { getCategories } from '../data/DataService'
 
 function Categories(props) {
 
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(["Family", "Friends", "Partner", "Myself"]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            let categoryNames = await getCategories();
-            setCategories(categoryNames);
-        }
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         let categoryNames = await getCategories();
+    //         setCategories(categoryNames);
+    //     }
+    //     fetchData();
+    // }, []);
 
     const onClickHandler = (event) => {
         event.preventDefault();

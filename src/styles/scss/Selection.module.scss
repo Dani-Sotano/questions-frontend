@@ -1,0 +1,285 @@
+@import "../variables/Variables.scss";
+
+
+.overview {
+    width: 100vw;
+    overflow: hidden;
+}
+
+.background {
+    // grid-column: 1;
+    background: url("../../resources/background.jpg");
+    position: fixed;
+    width: 1050px;
+    height: 100%;
+    background-size: cover;
+    /* or contain depending on what you want */
+    background-position: start start;
+    background-repeat: no-repeat;
+    z-index: 1;
+    float: left;
+}
+
+.background_question{
+        // grid-column: 1;
+        background: url("../../resources/NightSky.jpeg");
+        text-align: center;
+        position: fixed;
+        min-width: 100%;
+        min-height: 100%;
+        background-position: center;
+        background-size: cover;
+}
+
+
+.background_goal {
+    // grid-column: 1;
+    background: url("../../resources/Tahoe.jpeg");
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    /* or contain depending on what you want */
+    background-position: end end;
+    background-repeat: no-repeat;
+    z-index: 1;
+    float: left;
+}
+
+.category_container {
+    position: fixed;
+    height: 100vh;
+    width: 50vw;
+    right: 0;
+    z-index: 2;
+    align-self: right;
+    background-color: #8ebedd;
+    float: left;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+}
+
+
+.goal_container {
+    position: fixed;
+    height: 100vh;
+    width: 50vw;
+    right: 0;
+    z-index: 2;
+    align-self: right;
+    background-color: rgb(144 205 255);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+
+}
+
+.selection {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    padding-right: 60px;
+    padding-left: 60px;
+}
+
+
+.heading{
+    text-align: center;
+    font-family: $basic_font;
+    font-size: 25px;
+    margin-bottom: 80px;
+    color: #024b68fc;;
+    word-wrap: break-word;
+}
+
+.buttons{
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: 1.5em;
+    justify-content: center;
+}
+
+.element{
+    background-color:#b5d6ecc4;;
+    border: 1px solid  #024b68fc;
+    height: 50px;
+    width: 200px;
+    text-align: left;
+    // margin-left: 40px;
+    padding-left: 20px;
+    font-family: $basic_font;
+    font-size: 16px;
+    color:  #024b68fc;
+    
+}
+
+
+// questions component
+
+.empty{
+    font-family: $basic_font;
+    font-size: 50px;
+    color:  #fefefefc;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.container_question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.question_box{
+     height: 400px;
+     width: 900px;
+     z-index: 2;
+     background-color: #253c74;
+     opacity: 0.9;
+     box-shadow: rgba(49, 49, 52, 0.706) 0px 9px 40px 0px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+
+
+
+.question {
+    font-family: $troye_script;
+    font-size: 80px;
+    color:  #fefefefc;
+    word-wrap: break-word;
+
+    margin-left: 100px;
+    margin-right: 100px;
+
+    text-align: center;
+    
+}
+
+.prev{
+    all: unset;
+    position: fixed;
+    left: 80px;
+}
+
+.next{
+    all: unset;
+    position: fixed;
+    right: 80px;
+}
+
+.prev:disabled .icon{
+    color: rgba(236, 234, 234, 0.401);
+}
+.next:disabled .icon{
+    color: rgba(236, 234, 234, 0.401);
+}
+
+.icon{
+    color: white;
+    opacity: 100%;
+    font-size: 100px;
+}
+
+@media all and (max-width: 1000px) {
+    .prev{
+        all: unset;
+        position: fixed;
+        left: 10px;
+        margin: 10px;
+    }
+    
+    .next{
+        all: unset;
+        position: fixed;
+        right: 10px;
+    }
+
+    .icon{
+        color: white;
+        opacity: 100%;
+        font-size: 70px;
+    }
+}
+
+@media all and (max-width: 500px) {
+    .prev{
+        all: unset;
+        position: fixed;
+        left: 15px;
+    }
+    
+    .next{
+        all: unset;
+        position: fixed;
+        right: 15px;
+    }
+    .icon{
+        color: white;
+        opacity: 100%;
+        font-size: 50px;
+    }
+}
+
+@media all and (max-width: 500px) {
+    .overview {
+        width: 100vw;
+        overflow: hidden;
+    }
+    
+    .background {
+        // grid-column: 1;
+        background: url("../../resources/background.jpg");
+        position: fixed;
+        width: 1050px;
+        height: 100%;
+        background-size: cover;
+        /* or contain depending on what you want */
+        background-position: start start;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+    
+    
+    .background_goal {
+        // grid-column: 1;
+        background: url("../../resources/Tahoe.jpeg");
+        position: fixed;
+        width: 1050px;
+        height: 100%;
+        background-size: cover;
+        /* or contain depending on what you want */
+        background-position: end end;
+        background-repeat: no-repeat;
+        z-index: 1;
+        right: 0;
+    }
+    
+    .category_container {
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        z-index: 2;
+    }
+    
+    
+    .goal_container {
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        float: left;
+    }
+    
+    .selection {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        padding-right: 60px;
+        padding-left: 60px;
+    }    
+}
