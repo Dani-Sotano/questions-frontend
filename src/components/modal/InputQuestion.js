@@ -10,7 +10,6 @@ const InputQuestion = (props) => {
   const [selectedGoals, setSelectedGoals] = useState(new Map());
   const [options, setSelectionOptions] = useState([]);
 
-
   useEffect(() => {
 
     async function fetchData() {

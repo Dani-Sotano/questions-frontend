@@ -6,6 +6,8 @@ import InputQuestions from "./components/modal/InputQuestion";
 import Questions from "./components/Questions";
 import ReactModal from 'react-modal';
 
+import styles from './styles/css/Overview.module.css'
+
 export const VIEW = {
   CATEGORY: 'category',
   GOAL: 'goal',
@@ -44,15 +46,16 @@ function App() {
     view: VIEW.CATEGORY
   })
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   const handleCloseModal = () => {
     setIsOpen(false);
   }
 
   return (
-    <div>
+    <div className={styles.wrapper} onClick={isOpen ? handleCloseModal : undefined}>
       <Header
+      className={styles.header}
         openModal={setIsOpen}
         isOpen={isOpen}
         category={state.category}
@@ -61,16 +64,8 @@ function App() {
       >
       </Header>
 
-      <ReactModal
-        ariaHideApp={false}
-        isOpen={isOpen}
-        contentLabel="Input new question"
-      >
-        <div>
-          <InputQuestions closeModal={handleCloseModal}></InputQuestions>
-        </div>
-      </ReactModal>
-
+    
+      <div className={styles.content}>
       {state.view === VIEW.GOAL &&
         <Goal
           dispatch={dispatch}
@@ -87,8 +82,21 @@ function App() {
           goal={state.goal}
         ></Questions>
       }
+      </div>
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={isOpen}
+        contentLabel="Input new question"
+        className={styles.modal}
+      >
+        <div>
+          <InputQuestions closeModal={handleCloseModal}></InputQuestions>
+        </div>
+      </ReactModal>
+
+
     </div>
-    
+
   );
 }
 
