@@ -2,7 +2,6 @@ import React, { useState, useReducer } from "react";
 import Categories from "./components/Categories";
 import Header from "./components/Header";
 import Goal from "./components/Goal";
-import Background from "./components/Background";
 import InputQuestions from "./components/modal/InputQuestion";
 import Questions from "./components/Questions";
 import ReactModal from 'react-modal';
@@ -14,7 +13,9 @@ export const VIEW = {
 }
 
 export const ACTIONS = {
-  CHANGE_VIEW: "change-view"
+  CHANGE_VIEW: "change-view",
+  REMOVE_CATEGORY: "remove_category",
+  REMOVE_GOALS: "remove_goals"
 }
 
 const reducer = function (state, action) {
@@ -23,8 +24,14 @@ const reducer = function (state, action) {
       return { ...state, category: action.payload.selection, view: VIEW.GOAL }
     } else if (action.payload.view === VIEW.GOAL) {
       return { ...state, goal: action.payload.selection, view: VIEW.QUESTION }
+    } else {
+      return { ...state, category: action.payload.selection, view: VIEW.QUESTION };
     }
-    return { ...state, category: action.payload.selection, view: VIEW.QUESTION };
+  }
+  if (action.type === ACTIONS.REMOVE_CATEGORY) {
+    return { ...state, goal: null, category: null, view: VIEW.CATEGORY }
+  } else if (action.type === ACTIONS.REMOVE_GOALS) {
+    return { ...state, goal: null, view: VIEW.GOAL }
   }
 }
 
@@ -45,10 +52,14 @@ function App() {
 
   return (
     <div>
-      {/* <Header 
-          openModal={setIsOpen}
-          isOpen={isOpen}>
-            </Header> */}
+      <Header
+        openModal={setIsOpen}
+        isOpen={isOpen}
+        category={state.category}
+        goal={state.goal}
+        dispatch={dispatch}
+      >
+      </Header>
 
       <ReactModal
         ariaHideApp={false}

@@ -74,11 +74,7 @@ function Questions({ category, goal }) {
             type: ACTIONS.PREV_QUESTION
         })
     }
-
-
-
-
-
+    
     return (
         <div className={styles.overview}>
             <div className={styles.background_question}></div>
