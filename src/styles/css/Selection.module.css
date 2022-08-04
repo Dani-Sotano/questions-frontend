@@ -73,6 +73,10 @@
 }
 
 .heading {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   font-family: "Raleway", sans-serif;
   font-size: 25px;
@@ -83,9 +87,7 @@
 
 .buttons {
   display: grid;
-  grid-template-rows: auto;
   grid-gap: 1.5em;
-  justify-content: center;
 }
 
 .element {
@@ -98,6 +100,97 @@
   font-family: "Raleway", sans-serif;
   font-size: 16px;
   color: rgba(2, 75, 104, 0.9882352941);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-animation-name: move;
+          animation-name: move;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.element:nth-of-type(1) {
+  top: 40%;
+}
+
+.element:nth-of-type(2) {
+  top: 50%;
+}
+
+.element:nth-of-type(3) {
+  top: 60%;
+}
+
+.element:nth-of-type(4) {
+  top: 70%;
+}
+
+@-webkit-keyframes move {
+  from {
+    left: 110%;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes move {
+  from {
+    left: 110%;
+  }
+  to {
+    left: 50%;
+  }
+}
+.element:nth-of-type(0) {
+  --top: 30+$i*10%;
+}
+
+.buttons button:nth-child(0) {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+
+.element:nth-of-type(1) {
+  --top: 30+$i*10%;
+}
+
+.buttons button:nth-child(1) {
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+}
+
+.element:nth-of-type(2) {
+  --top: 30+$i*10%;
+}
+
+.buttons button:nth-child(2) {
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+.element:nth-of-type(3) {
+  --top: 30+$i*10%;
+}
+
+.buttons button:nth-child(3) {
+  -webkit-animation-delay: 0.75s;
+          animation-delay: 0.75s;
+}
+
+.element:nth-of-type(4) {
+  --top: 30+$i*10%;
+}
+
+.buttons button:nth-child(4) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
 }
 
 .empty {
