@@ -80,12 +80,12 @@ function Questions({ category, goal }) {
             <div className={styles.background_question}></div>
             <div className={styles.container_question}>
                 <div className={styles.question_box}>
-                    {!state.isLoading && state.questions.length &&
+                    {!state.isLoading && state.questions.length > 0 &&
                         <div className={styles.question}>
                             {state.questions[state.currentQuestionId]}
                         </div>
                     }
-                    {!state.isLoading && !state.questions.length &&
+                    {(!state.isLoading && state.questions.length === 0) &&
                         <p className={styles.empty}>There is no data...</p>
                     }
                     <button className={styles.prev} onClick={handlePrevQuestion} disabled={state.prevDisabled}>
