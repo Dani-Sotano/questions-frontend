@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/css/Selection.module.css'
 import { ACTIONS } from '../App.js';
 import {getGoals} from '../data/DataService'
+import background from "../resources/Tahoe.jpeg";
 
 function Goal(props) {
 
@@ -29,7 +30,7 @@ function Goal(props) {
 
     return (
         <div className={styles.overview}>
-        <div className={styles.background_goal}></div>
+        <img src={props.image} className={styles.background_goal}></img>
         <div className={styles.goal_container}>
             <div className={styles.selection}>
                 <div>

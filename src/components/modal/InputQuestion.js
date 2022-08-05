@@ -89,7 +89,6 @@ const InputQuestion = (props) => {
       setSelectedGoals(selectedGoals)
     }
   }
-  debugger;
 
   const handleCloseModal = () => {
     props.closeModal();
@@ -99,7 +98,7 @@ const InputQuestion = (props) => {
     <div className={styles.container}>
     <form onSubmit={formSubmissionHandler} className={styles.form}>
       <div className={styles.input}>
-        <label htmlFor='question' className={styles.inputLabel}>Thank you for sharing your Question</label>
+        <label htmlFor='question' className={styles.inputLabel}>Thank you for sharing your question</label>
         <textarea
           className={styles.inputField}
           id='name'
@@ -123,6 +122,7 @@ const InputQuestion = (props) => {
             </button>
             <GoalSelector
               category={category}
+              goals={selectedGoals}
               addGoal={addGoal}
               removeGoal={removeGoal}
             ></GoalSelector>

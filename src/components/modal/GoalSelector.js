@@ -20,7 +20,7 @@ const GoalSelector = (props) => {
       setGoals(goalButton)
     }
     createButtons();
-  }, []);
+  }, [props.goals]);
 
   const handleOnClick = (event) => {
     let goalName = event.target.value;

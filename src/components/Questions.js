@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 
+
 import PropTypes from "prop-types";
 
 export const ACTIONS = {
@@ -47,7 +48,7 @@ const reduce = (state, action) => {
     }
 }
 
-function Questions({ category, goal }) {
+function Questions({ category, goal, image }) {
 
     let data = [];
 
@@ -87,7 +88,7 @@ console.log(data)
 
     return (
         <div className={styles.overview}>
-            <div className={styles.background_question}></div>
+            <img src={image} className={styles.background_question}></img>
             <div className={styles.container_question}>
                 <div className={styles.question_box}>
                     {!state.isLoading && state.questions.length > 0 &&

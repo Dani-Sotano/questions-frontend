@@ -3,17 +3,18 @@ import { ACTIONS } from '../App.js';
 import styles from '../styles/css/Selection.module.css'
 import { getCategories } from '../data/DataService'
 
+
 function Categories(props) {
 
-    const [categories, setCategories] = useState(["Family", "Friends", "Partner", "Myself"]);
+    const [categories, setCategories] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         let categoryNames = await getCategories();
-    //         setCategories(categoryNames);
-    //     }
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            let categoryNames = await getCategories();
+            setCategories(categoryNames);
+        }
+        fetchData();
+    }, []);
 
     const onClickHandler = (event) => {
         event.preventDefault();
@@ -28,7 +29,7 @@ function Categories(props) {
 
     return (
         <div className={styles.overview}>
-            <div className={styles.background}></div>
+            <img src={props.image} className={styles.background}></img>
             <div className={styles.category_container}>
                 <div className={styles.selection}>
                     <div>
